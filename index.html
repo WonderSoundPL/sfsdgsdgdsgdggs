@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WonderSound</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 10px;
+        }
+
+        .add-form {
+            margin-bottom: 30px;
+        }
+
+        .add-form input, .add-form button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1.1rem;
+        }
+
+        .add-form button {
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+
+        .add-form button:hover {
+            background-color: #2980b9;
+        }
+
+        .artist-list, .song-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .artist-item, .song-item {
+            background-color: #ecf0f1;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .artist-item:hover, .song-item:hover {
+            background-color: #bdc3c7;
+        }
+
+        .song-detail {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .song-detail h3 {
+            margin-top: 0;
+        }
+
+        .song-detail p {
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+
+        .modal-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-background.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        .modal-content button {
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .modal-content button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>WonderSound</h1>
+    <p>Twórz, odkrywaj i dodawaj ulubione piosenki artystów!</p>
+</header>
+
+<div class="container">
+    <div class="add-form">
+        <h2 class="section-title">Dodaj Artystę</h2>
+        <input type="text" id="artist-name" placeholder="Nazwa artysty">
+        <button onclick="addArtist()">Dodaj Artystę</button>
+    </div>
+
+    <div class="add-form">
+        <h2 class="section-title">Dodaj Piosenkę</h2>
+        <input type="text" id="song-title" placeholder="Tytuł piosenki">
+        <input type="text" id="song-artist" placeholder="Artysta">
+        <button onclick="addSong()">Dodaj Piosenkę</button>
+    </div>
+
+    <h2 class="section-title">Artyści</h2>
+    <ul class="artist-list" id="artist-list">
+        <!-- Lista artystów -->
+    </ul>
+
+    <h2 class="section-title">Global 100</h2>
+    <ul class="song-list" id="song-list">
+        <!-- Lista piosenek -->
+    </ul>
+</div>
+
+<div class="modal-background" id="song-detail-modal">
+    <div class="modal-content">
+        <h3 id="song-detail-title"></h3>
+        <p>Artysta: <span id="song-detail-artist"></span></p>
+        <p>Odtworzenia: <span id="song-detail-streams"></span></p>
+        <p>Najwyższa pozycja na liście Global 100: <span id="song-detail-highest-position"></span></p>
+        <button onclick="closeSongDetail()">Zamknij</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
